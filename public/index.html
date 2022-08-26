@@ -4,10 +4,13 @@
 <html>
 <head>
 <meta charset="utf-8">
+<Content-Type text/html; charset=UTF-8></Content-Type>
 <title>First Page</title>
 
 <!--CSS-->
 <link rel="stylesheet" href="/jquery-ui/themes/base/jquery-ui.css">
+<!--Tailwind CSS-->
+<link rel="stylesheet" href="/styles/style.css"/>
 
 <!--Javascript-->
 <script src="/jquery/jquery.min.js"></script>
@@ -41,6 +44,19 @@
           <div id="myDynamicTable"></div>
         </div>
         <div id="tabs-3">
+          <div class="flex justify-center">
+            <div class="flex flex-col md:flex-row md:max-w-xl rounded-lg bg-white shadow-lg">
+              <img class=" w-full h-96 md:h-auto object-cover md:w-48 rounded-t-lg md:rounded-none md:rounded-l-lg" src="/images/Bongo-Cat-png-3.png" alt="" />
+              <div class="p-6 flex flex-col justify-start">
+                <h5 class="text-gray-900 text-xl font-medium mb-2" id="std-name-info"></h5>
+                <p class="text-gray-700 text-base mb-4" id="std-id-info"></p>
+                <p class="text-gray-700 text-base mb-4" id="gpa-std"></p>
+                <p class="text-gray-700 text-base mb-4" id="fwork"></p>
+              </div>
+            </div>
+          </div>
+          
+
         
         </div>
     </div><!-- tabs-->
@@ -72,14 +88,15 @@
                headers: { 
                  'Content-Type': 'application/json',
                  "Accepts": "application/json",
-                 "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC90b29scy5lY3BlLm51LmFjLnRoXC9uZXR3b3JrXC9hcGlcL2xvZ2luIiwiaWF0IjoxNjU4ODMyNDMxLCJleHAiOjE2NTg4MzYwMzEsIm5iZiI6MTY1ODgzMjQzMSwianRpIjoiZmhsV0pCcE1SVTFMWFlsQSIsInN1YiI6NDYsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.u4xrIN1SdaZR_YPPjmnX3SUXexAhzy5plL1XQ6N3xgo",
+                 "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC90b29scy5lY3BlLm51LmFjLnRoXC9uZXR3b3JrXC9hcGlcL2xvZ2luIiwiaWF0IjoxNjYxNTEwNjMwLCJleHAiOjE2NjE1MTQyMzAsIm5iZiI6MTY2MTUxMDYzMCwianRpIjoiNUtYbjVFaTNZTmJOaURZWiIsInN1YiI6NDYsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.mKO6vtu16XCm4cPTs2g7X4C9UHR0f-sU2SlRwlmU08U",
                },
                success: function(data){
                  console.log(data);
                  var tbName ="myDynamicTable";
                  addTable(data,tbName);
-   
+    
                  //alert("Done");
+           
                }
              });
            });
@@ -111,141 +128,157 @@
           function RestoreBackgroundColor(row,color_me) { row.style.backgroundColor = color_me; }
   
     function addTable(items,tb_name) {
-                    
-      console.log("addTable"+items.length);
-      var myTableDiv = document.getElementById(tb_name);
-  
-      var table = document.createElement('TABLE');
-      table.border = '1';
-      //table.setAttribute("class", "table table-striped");
-  
-      var tableHead = document.createElement('THEAD');
-      table.appendChild(tableHead);
+                        
+          console.log("addTable"+items.length);
+          var myTableDiv = document.getElementById(tb_name);
       
-      var trHead = document.createElement('TR');
-      trHead.setAttribute("style","background-color:#4e4cba;color: white;text-align: center;");
+          var table = document.createElement('TABLE');
+          table.border = '1';
+          //table.setAttribute("class", "table table-striped");
       
-      tableHead.appendChild(trHead);
-      
-      var col1 = document.createElement('TD');
-      //col1.width = '25px';
-      col1.setAttribute("width","20px");
-      trHead.appendChild(col1);
-      col1.appendChild(document.createTextNode("No"));
-      
-      var col2 = document.createElement('TD');
-      trHead.appendChild(col2);
-      col2.appendChild(document.createTextNode("รหัสนิสิต"));
-      
-      var col3 = document.createElement('TD');
-      trHead.appendChild(col3);
-      col3.appendChild(document.createTextNode("ชื่อ-นามสกุล"));
-    
-      var col4 = document.createElement('TD');
-      trHead.appendChild(col4);
-      col4.appendChild(document.createTextNode("gpa"));
-    
-      var col5 = document.createElement('TD');
-      //col5.width = '50px';
-      trHead.appendChild(col5);
-      col5.appendChild(document.createTextNode("อาชีพในอนาคต"));
-  
-      var col6 = document.createElement('TD');
-      trHead.appendChild(col6);
-      col6.appendChild(document.createTextNode("รายละเอียด"));
-      
-      var tableBody = document.createElement('TBODY');
-      table.appendChild(tableBody);
-  
-      for (var i = 0; i < items.length; i++) {
-      var tr = document.createElement('TR');
-      //$(tr);
-      tableBody.appendChild(tr);
+          var tableHead = document.createElement('THEAD');
+          table.appendChild(tableHead);
+          
+          var trHead = document.createElement('TR');
+          trHead.setAttribute("style","background-color:#4e4cba;color: white;text-align: center;");
+          
+          tableHead.appendChild(trHead);
+          
+          var col1 = document.createElement('TD');
+          //col1.width = '25px';
+          col1.setAttribute("width","20px");
+          trHead.appendChild(col1);
+          col1.appendChild(document.createTextNode("No"));
+          
+          var col2 = document.createElement('TD');
+          trHead.appendChild(col2);
+          col2.appendChild(document.createTextNode("รหัสนิสิต"));
+          
+          var col3 = document.createElement('TD');
+          trHead.appendChild(col3);
+          col3.appendChild(document.createTextNode("ชื่อ-นามสกุล"));
         
-      var color;
-      if(i%2==0){
-        color="#F1E2E2"; // result%2 != 0
-      }else{
-         color="#DDD3B3";
-      }
-      idItem=(i+1);
-      //--------cell 1
-      tr.id=idItem;
+          var col4 = document.createElement('TD');
+          trHead.appendChild(col4);
+          col4.appendChild(document.createTextNode("gpa"));
         
-      tr.setAttribute("onmouseover","ChangeBackgroundColor(this)");
-      tr.setAttribute("onmouseout","RestoreBackgroundColor(this,'"+color+"')");
-      tr.setAttribute("style","background-color:"+color+";");
-  
-      for (var j = 0; j < 6; j++) {
-        
-        //td.width = '75';
-        if(j==0){
-          var cell1 = document.createElement('TD');
-          //td.width = '25px';
-          //$(td).attr('id',i++);
-          //td.setAttribute("width", "25px");
-          cell1.setAttribute("width","20px");
-          cell1.setAttribute("align","center");
-          cell1.appendChild(document.createTextNode("" + (i+1) ));
-          tr.appendChild(cell1);
-        }else if(j==1){
-          //status
-          var cell2 = document.createElement('TD');
-          cell2.appendChild(document.createTextNode(items[i].student_id));
-          tr.appendChild(cell2);
-          //tr.appendChild(td);
+          var col5 = document.createElement('TD');
+          //col5.width = '50px';
+          trHead.appendChild(col5);
+          col5.appendChild(document.createTextNode("อาชีพในอนาคต"));
+      
+          var col6 = document.createElement('TD');
+          trHead.appendChild(col6);
+          col6.appendChild(document.createTextNode("รายละเอียด"));
           
-        }else if(j==2){
-          //number_bill
-          var cell3 = document.createElement('TD');
-          cell3.appendChild(document.createTextNode(items[i].fullname));
-          tr.appendChild(cell3);
-          //tr.appendChild(td);
-        }else if(j==3){
-          //work_Code
-          var cell4 = document.createElement('TD');
-          cell4.appendChild(document.createTextNode(items[i].gpa));
-          tr.appendChild(cell4);
-          //tr.appendChild(td);
-        }else if(j==4){
-          //date
-          var cell5 = document.createElement('TD');
-          cell5.appendChild(document.createTextNode(items[i].position));
-          tr.appendChild(cell5);
-          //tr.appendChild(td);
-        }else if(j==5){
-          //department
-          //btn
-          var cell5 = document.createElement('TD');
-          //cell8.appendChild(document.createTextNode("tt"));
-          cell5.setAttribute("align","center");
-          cell5.setAttribute("width","20px");
-          
-          var elementButtonSave = document.createElement("input");
-          elementButtonSave.type = "button";
-          elementButtonSave.id = "btnConfirm"+idItem;
-          elementButtonSave.value = "รายละเอียด";
-        //elementStartDate.setAttribute("width","80");
-         // elementButtonSave.setAttribute("style","width:50px;");
-          //elementButtonSave.setAttribute("class","tealA400");
-          
-         
-          elementButtonSave.setAttribute("onclick","popupConfirm('"+items[i].fullname+"',this)");
-          
-  
-          cell5.appendChild(elementButtonSave);
-          
-          
-          tr.appendChild(cell5);
-          //tr.appendChild(td);
+          var tableBody = document.createElement('TBODY');
+          table.appendChild(tableBody);
+      
+          for (var i = 0; i < items.length; i++) {
+          var tr = document.createElement('TR');
+          //$(tr);
+          tableBody.appendChild(tr);
+            
+          var color;
+          if(i%2==0){
+            color="#F1E2E2"; // result%2 != 0
+          }else{
+             color="#DDD3B3";
+          }
+          idItem=(i+1);
+          //--------cell 1
+          tr.id=idItem;
+            
+          tr.setAttribute("onmouseover","ChangeBackgroundColor(this)");
+          tr.setAttribute("onmouseout","RestoreBackgroundColor(this,'"+color+"')");
+          tr.setAttribute("style","background-color:"+color+";");
+      
+          for (var j = 0; j < 6; j++) {
+            
+            //td.width = '75';
+            if(j==0){
+              var cell1 = document.createElement('TD');
+              //td.width = '25px';
+              //$(td).attr('id',i++);
+              //td.setAttribute("width", "25px");
+              cell1.setAttribute("width","20px");
+              cell1.setAttribute("align","center");
+              cell1.appendChild(document.createTextNode("" + (i+1) ));
+              tr.appendChild(cell1);
+            }else if(j==1){
+              //status
+              var cell2 = document.createElement('TD');
+              cell2.appendChild(document.createTextNode(items[i].student_id));
+              tr.appendChild(cell2);
+              //tr.appendChild(td);
+              
+            }else if(j==2){
+              //number_bill
+              var cell3 = document.createElement('TD');
+              cell3.appendChild(document.createTextNode(items[i].fullname));
+              tr.appendChild(cell3);
+              //tr.appendChild(td);
+            }else if(j==3){
+              //work_Code
+              var cell4 = document.createElement('TD');
+              cell4.appendChild(document.createTextNode(items[i].gpa));
+              tr.appendChild(cell4);
+              //tr.appendChild(td);
+            }else if(j==4){
+              //date
+              var cell5 = document.createElement('TD');
+              cell5.appendChild(document.createTextNode(items[i].position));
+              tr.appendChild(cell5);
+              //tr.appendChild(td);
+            }else if(j==5){
+              //department
+              //btn
+              var cell5 = document.createElement('TD');
+              //cell8.appendChild(document.createTextNode("tt"));
+              cell5.setAttribute("align","center");
+              cell5.setAttribute("width","20px");
+              
+              var elementButtonSave = document.createElement("input");
+              elementButtonSave.type = "button";
+              elementButtonSave.id = "btnConfirm"+idItem;
+              elementButtonSave.value = "รายละเอียด";
+            //elementStartDate.setAttribute("width","80");
+             // elementButtonSave.setAttribute("style","width:50px;");
+              //elementButtonSave.setAttribute("class","tealA400");
+              
+             
+              elementButtonSave.setAttribute("onclick","studentInfo('"+items[i].student_id+"',this)");
+              
+      
+              cell5.appendChild(elementButtonSave);
+              
+              
+              tr.appendChild(cell5);
+              //tr.appendChild(td);
+            }
+          }
+          }
+          myTableDiv.appendChild(table);
         }
-      }
-      }
-      myTableDiv.appendChild(table);
-    }
-  
-    function popupConfirm(fullname,objElement){
-      alert(fullname);
-    }
+    function studentInfo(student_id){
+             $.ajax({
+               method: "GET",
+               url: "https://tools.ecpe.nu.ac.th/network/api/student/"+student_id,
+               dataType : 'json',
+               headers: { 
+                 'Content-Type': 'application/json',
+                 "Accepts": "application/json",
+                 "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC90b29scy5lY3BlLm51LmFjLnRoXC9uZXR3b3JrXC9hcGlcL2xvZ2luIiwiaWF0IjoxNjYxNTEwNjMwLCJleHAiOjE2NjE1MTQyMzAsIm5iZiI6MTY2MTUxMDYzMCwianRpIjoiNUtYbjVFaTNZTmJOaURZWiIsInN1YiI6NDYsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.mKO6vtu16XCm4cPTs2g7X4C9UHR0f-sU2SlRwlmU08U",
+               },
+               success: function(data){
+                 console.log(data);
+                 document.getElementById("std-name-info").innerHTML = "Name : "+data[0].fullname;
+                 document.getElementById("std-id-info").innerHTML = "Student ID : "+data[0].student_id;
+                 document.getElementById("gpa-std").innerHTML = "GPA : "+data[0].gpa;
+                 document.getElementById("fwork").innerHTML = "Position : "+data[0].position;
+                 $("#tabs").tabs("option","active",2)
+               }
+             });
+            }
   </script>
 </html>
